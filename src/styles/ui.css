@@ -1,4 +1,4 @@
-/* Texto dedicatorio + dica de orientacao */
+/* Texto dedicatorio + player de musica */
 
 .yr-dedication {
   position: absolute;
@@ -26,99 +26,6 @@
     rgba(8, 10, 6, 0.5) 100%
   );
   border-radius: 0.5rem;
-}
-
-.yr-orient-hint {
-  position: absolute;
-  z-index: 60;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  padding: 1.5rem;
-  text-align: center;
-  pointer-events: none;
-  background: rgba(6, 8, 5, 0.72);
-  backdrop-filter: blur(6px);
-  animation: yr-hint-fade-in 0.6s ease-out;
-}
-
-.yr-orient-hint__icon {
-  position: relative;
-  width: 4.5rem;
-  height: 3rem;
-  margin-bottom: 0.25rem;
-}
-
-.yr-orient-hint__phone {
-  display: block;
-  width: 2rem;
-  height: 3.2rem;
-  margin: 0 auto;
-  border: 2px solid rgba(255, 230, 180, 0.75);
-  border-radius: 0.35rem;
-  transform: rotate(0deg);
-  animation: yr-phone-rotate 2.4s ease-in-out infinite;
-}
-
-.yr-orient-hint__arrow {
-  position: absolute;
-  right: 0.2rem;
-  top: 0.2rem;
-  font-size: 1.6rem;
-  color: rgba(255, 210, 120, 0.9);
-  animation: yr-arrow-pulse 2.4s ease-in-out infinite;
-}
-
-.yr-orient-hint__title {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  font-size: clamp(1rem, 4.5vw, 1.25rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: rgba(255, 240, 210, 0.95);
-}
-
-.yr-orient-hint__sub {
-  margin: 0;
-  max-width: 16rem;
-  font-family: system-ui, sans-serif;
-  font-size: clamp(0.82rem, 3.6vw, 0.95rem);
-  line-height: 1.45;
-  color: rgba(255, 220, 170, 0.82);
-}
-
-@keyframes yr-hint-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes yr-phone-rotate {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(90deg);
-  }
-}
-
-@keyframes yr-arrow-pulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
 }
 
 /* Mobile portrait — rosa um pouco mais alta, texto compacto */

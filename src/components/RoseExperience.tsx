@@ -5,7 +5,6 @@ import { DedicationText } from './DedicationText';
 import { FallingPetal } from './FallingPetal';
 import { ForegroundFrame } from './ForegroundFrame';
 import { GardenScene } from './GardenScene';
-import { OrientationHint } from './OrientationHint';
 import { RoseStage } from './RoseStage';
 import { SceneBackground } from './SceneBackground';
 import { WindTrails } from './WindTrails';
@@ -51,7 +50,6 @@ export function RoseExperience() {
       </div>
 
       <DedicationText />
-      <OrientationHint visible={isPortraitMobile} />
       <AmbientMusic enabled={loaded} />
     </div>
   );

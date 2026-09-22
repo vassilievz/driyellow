@@ -18,7 +18,7 @@ export const RoseStage = memo(function RoseStage({
 }: RoseStageProps) {
   const scale = isMobile
     ? isLandscape
-      ? ROSE_SCALE_MOBILE * 1.08
+      ? ROSE_SCALE_MOBILE * 0.58
       : ROSE_SCALE_MOBILE * 0.92
     : ROSE_SCALE_DESKTOP;
 
@@ -32,13 +32,13 @@ export const RoseStage = memo(function RoseStage({
 
   const width = isMobile
     ? isLandscape
-      ? 'min(72vh, 820px)'
+      ? 'min(46vh, 360px)'
       : 'min(92vw, 680px)'
     : 'min(88vw, 720px)';
 
   const height = isMobile
     ? isLandscape
-      ? 'min(88vh, 680px)'
+      ? 'min(52vh, 380px)'
       : 'min(52vh, 520px)'
     : 'min(76vh, 700px)';
 

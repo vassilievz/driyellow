@@ -1,0 +1,765 @@
+/* Grama animada — inspirado em mdusmanansari/BamepLe, paleta Yellow Rose */
+
+:root {
+  --gr-dark: #000;
+  --gr-c: #3d6b32;
+  --gr-c-light: #5c8443;
+  --gr-c-deep: #24311e;
+  --gr-c-bright: #6a9a52;
+  --gr-ground: #2a4522;
+  --gr-ground-light: #4a7538;
+  --gr-ground-dark: #152010;
+}
+
+.gr-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gr-paused *,
+.gr-not-loaded * {
+  animation-play-state: paused !important;
+}
+
+/* ── Pradaria / chão orgânico ── */
+
+.gr-meadow {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.gr-meadow__svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 22vmin;
+}
+
+.gr-meadow__mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12vmin;
+  background: linear-gradient(
+    to top,
+    rgba(8, 12, 7, 0.65) 0%,
+    rgba(12, 18, 10, 0.15) 55%,
+    transparent 100%
+  );
+}
+
+.gr-tuft {
+  position: absolute;
+  width: 14vmin;
+  height: 10vmin;
+  transform-origin: bottom center;
+}
+
+.gr-tuft__blade {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(var(--rot, 0deg));
+  border-radius: 50% 50% 0 0 / 68% 68% 0 0;
+  background:
+    linear-gradient(
+      95deg,
+      transparent 0%,
+      rgba(160, 210, 120, 0.14) 18%,
+      transparent 32%
+    ),
+    linear-gradient(
+      to top,
+      var(--gr-c-deep) 0%,
+      #325628 28%,
+      var(--gr-c) 55%,
+      var(--gr-c-light) 82%,
+      rgba(138, 188, 108, 0.85) 94%,
+      rgba(168, 210, 130, 0.55) 100%
+    );
+  animation: gr-tuft-sway 3.6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.gr-tuft__blade--mid {
+  filter: brightness(1.06);
+}
+
+.gr-tuft__blade--outer {
+  opacity: 0.88;
+  filter: brightness(0.94) saturate(0.95);
+}
+
+/* ── Grama fina e comprida ── */
+
+.gr-thin-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gr-thin-blade {
+  position: absolute;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(var(--rot, 0deg));
+  border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+  background:
+    linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(170, 220, 130, 0.16) 15%,
+      transparent 28%
+    ),
+    linear-gradient(
+      to top,
+      var(--gr-c-deep) 0%,
+      #2e5026 30%,
+      var(--gr-c) 52%,
+      var(--gr-c-light) 76%,
+      rgba(145, 195, 115, 0.9) 92%,
+      rgba(175, 215, 140, 0.45) 100%
+    );
+  animation: gr-thin-sway 4.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.gr-thin-blade--fine {
+  border-radius: 50% 50% 0 0 / 85% 85% 0 0;
+  filter: brightness(0.96);
+}
+
+.gr-thin-blade--tall {
+  border-radius: 50% 50% 0 0 / 72% 72% 0 0;
+  filter: brightness(1.04);
+}
+
+@keyframes gr-thin-sway {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translate3d(-50%, 0, 0) rotate(calc(var(--rot, 0deg) + 3deg));
+  }
+}
+
+@keyframes gr-tuft-sway {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translate3d(-50%, 0, 0) rotate(calc(var(--rot, 0deg) + 4deg));
+  }
+}
+
+/* ── Grama principal ── */
+
+.gr-grass {
+  --line-w: 1.5vmin;
+  position: absolute;
+  bottom: 12vmin;
+  left: -7vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 20;
+  transform-origin: bottom center;
+  transform: rotate(-48deg) rotateY(40deg);
+}
+
+.gr-grass--1 {
+  animation: gr-moving-grass 2s linear infinite;
+}
+
+.gr-grass--2 {
+  left: 2vmin;
+  bottom: 10vmin;
+  transform: scale(0.5) rotate(75deg) rotateX(10deg) rotateY(-200deg);
+  opacity: 0.8;
+  z-index: 0;
+  animation: gr-moving-grass-2 1.5s linear infinite;
+}
+
+.gr-grass--3 {
+  left: auto;
+  right: -7vmin;
+  transform: rotate(48deg) rotateY(-40deg);
+  animation: gr-moving-grass-3 2.2s linear infinite;
+}
+
+.gr-grass--4 {
+  left: auto;
+  right: 2vmin;
+  bottom: 10vmin;
+  transform: scale(0.5) rotate(-75deg) rotateX(10deg) rotateY(200deg);
+  opacity: 0.8;
+  z-index: 0;
+  animation: gr-moving-grass-4 1.7s linear infinite;
+}
+
+.gr-grass__top {
+  width: 7vmin;
+  height: 10vmin;
+  border-top-right-radius: 100%;
+  border-right: var(--line-w) solid var(--gr-c);
+  transform-origin: bottom center;
+  transform: rotate(-2deg);
+}
+
+.gr-grass__bottom {
+  margin-top: -2px;
+  width: var(--line-w);
+  height: 25vmin;
+  background-image: linear-gradient(to top, transparent, var(--gr-c));
+}
+
+.gr-grass__leaf {
+  --size: 10vmin;
+  position: absolute;
+  width: calc(var(--size) * 2.1);
+  height: var(--size);
+  border-top-left-radius: var(--size);
+  border-top-right-radius: var(--size);
+  background-image: linear-gradient(to top, transparent, transparent 30%, var(--gr-c));
+  z-index: 100;
+}
+
+.gr-grass__leaf--1 { top: -6%; left: 30%; --size: 6vmin; transform: rotate(-20deg); animation: gr-grass-leaf-1 2s 2.6s backwards; }
+.gr-grass__leaf--2 { top: -5%; left: -110%; --size: 6vmin; transform: rotate(10deg); animation: gr-grass-leaf-2 2s 2.4s linear backwards; }
+.gr-grass__leaf--3 { top: 5%; left: 60%; --size: 8vmin; transform: rotate(-18deg) rotateX(-20deg); animation: gr-grass-leaf-3 2s 2.2s linear backwards; }
+.gr-grass__leaf--4 { top: 6%; left: -135%; --size: 8vmin; transform: rotate(2deg); animation: gr-grass-leaf-4 2s 2s linear backwards; }
+.gr-grass__leaf--5 { top: 20%; left: 60%; --size: 10vmin; transform: rotate(-24deg) rotateX(-20deg); animation: gr-grass-leaf-5 2s 1.8s linear backwards; }
+.gr-grass__leaf--6 { top: 22%; left: -180%; --size: 10vmin; transform: rotate(10deg); animation: gr-grass-leaf-6 2s 1.6s linear backwards; }
+.gr-grass__leaf--7 { top: 39%; left: 70%; --size: 10vmin; transform: rotate(-10deg); animation: gr-grass-leaf-7 2s 1.4s linear backwards; }
+.gr-grass__leaf--8 { top: 40%; left: -215%; --size: 11vmin; transform: rotate(10deg); animation: gr-grass-leaf-8 2s 1.2s linear backwards; }
+
+.gr-growing-grass {
+  animation: gr-growing-grass 1s 2s backwards;
+}
+
+/* ── Caule longo decorativo ── */
+
+.gr-g-long {
+  --w: 2vmin;
+  --h: 6vmin;
+  position: absolute;
+  bottom: 10vmin;
+  transform-origin: bottom center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gr-g-long--left {
+  left: -3vmin;
+  transform: rotate(-30deg) rotateY(-20deg);
+  animation: gr-g-long-ans 3s linear infinite;
+}
+
+.gr-g-long--right {
+  right: -3vmin;
+  left: auto;
+  transform: rotate(30deg) rotateY(20deg);
+  animation: gr-g-long-ans-right 3.2s linear infinite;
+}
+
+.gr-g-long__top {
+  top: calc(var(--h) * -1);
+  width: calc(var(--w) + 1vmin);
+  height: var(--h);
+  border-top-right-radius: 100%;
+  border-right: 0.7vmin solid var(--gr-c);
+  transform: translate(-0.7vmin, 1vmin);
+}
+
+.gr-g-long__bottom {
+  width: var(--w);
+  height: 50vmin;
+  transform-origin: bottom center;
+  background-image: linear-gradient(to top, transparent 30%, var(--gr-c));
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(35% 0, 65% 1%, 100% 100%, 0% 100%);
+}
+
+/* ── Folhas grandes laterais ── */
+
+.gr-g-right {
+  position: absolute;
+  bottom: 6vmin;
+  left: -2vmin;
+  transform-origin: bottom left;
+  transform: rotate(20deg);
+}
+
+.gr-g-right--1 {
+  animation: gr-g-right-ans 2.5s linear infinite;
+}
+
+.gr-g-right--2 {
+  left: 5vmin;
+  transform: rotateY(-180deg);
+  animation: gr-g-right-ans-2 3s linear infinite;
+}
+
+.gr-g-right--3 {
+  left: auto;
+  right: -2vmin;
+  transform: rotateY(-180deg) rotate(-20deg);
+  animation: gr-g-right-ans-3 2.8s linear infinite;
+}
+
+.gr-g-right--2 .gr-g-right__leaf {
+  height: 75vmin;
+  filter: blur(0.3vmin);
+  opacity: 0.8;
+}
+
+.gr-g-right__leaf {
+  width: 30vmin;
+  height: 50vmin;
+  border-top-left-radius: 100%;
+  border-left: 2vmin solid var(--gr-c-deep);
+  background-image: linear-gradient(to bottom, transparent, var(--gr-dark) 60%);
+  -webkit-mask-image: linear-gradient(to top, transparent 30%, var(--gr-c-deep) 60%);
+  mask-image: linear-gradient(to top, transparent 30%, var(--gr-c-deep) 60%);
+}
+
+/* ── Grama frontal (na frente da rosa) ── */
+
+.gr-g-front {
+  position: absolute;
+  bottom: 7vmin;
+  z-index: 100;
+  transform-origin: bottom center;
+}
+
+.gr-g-front--left {
+  left: 2.5vmin;
+  transform: rotate(-28deg) rotateY(30deg) scale(1.04);
+  animation: gr-g-front-ans 2s linear infinite;
+}
+
+.gr-g-front--right {
+  right: 2.5vmin;
+  left: auto;
+  transform: rotate(28deg) rotateY(-30deg) scale(1.04);
+  animation: gr-g-front-ans-right 2.1s linear infinite;
+}
+
+
+.gr-g-front__line {
+  width: 0.3vmin;
+  height: 20vmin;
+  background-image: linear-gradient(to top, transparent, var(--gr-c-deep), transparent 100%);
+  position: relative;
+}
+
+.gr-g-front__leaf-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: bottom left;
+  transform: rotate(10deg);
+}
+
+.gr-g-front__leaf-wrapper:nth-child(even) {
+  left: 0;
+  transform: rotateY(-180deg) rotate(5deg);
+  animation: gr-g-front-leaf-left 1s ease-in backwards;
+}
+
+.gr-g-front__leaf-wrapper:nth-child(odd) {
+  animation: gr-g-front-leaf 1s ease-in backwards;
+}
+
+.gr-g-front__leaf-wrapper--1 { top: -8vmin; transform: scale(0.7); animation: gr-g-front-leaf 1s 5.5s ease-in backwards !important; }
+.gr-g-front__leaf-wrapper--2 { top: -8vmin; transform: rotateY(-180deg) scale(0.7) !important; animation: gr-g-front-leaf-left-2 1s 4.6s ease-in backwards !important; }
+.gr-g-front__leaf-wrapper--3 { top: -3vmin; animation: gr-g-front-leaf 1s 4.6s ease-in backwards; }
+.gr-g-front__leaf-wrapper--4 { top: -3vmin; transform: rotateY(-180deg) scale(0.9) !important; animation: gr-g-front-leaf-left-2 1s 4.6s ease-in backwards !important; }
+.gr-g-front__leaf-wrapper--5,
+.gr-g-front__leaf-wrapper--6 { top: 2vmin; }
+.gr-g-front__leaf-wrapper--7,
+.gr-g-front__leaf-wrapper--8 { top: 6.5vmin; }
+.gr-g-front__leaf-wrapper--2 { animation-delay: 5.2s !important; }
+.gr-g-front__leaf-wrapper--3 { animation-delay: 4.9s !important; }
+.gr-g-front__leaf-wrapper--5 { animation-delay: 4.3s !important; }
+.gr-g-front__leaf-wrapper--6 { animation-delay: 4.1s !important; }
+.gr-g-front__leaf-wrapper--7 { animation-delay: 3.8s !important; }
+.gr-g-front__leaf-wrapper--8 { animation-delay: 3.5s !important; }
+
+.gr-g-front__leaf {
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;
+  box-shadow: inset 0 2px 1vmin rgba(106, 154, 82, 0.2);
+  background-image: linear-gradient(to bottom right, var(--gr-c-light) 40%, var(--gr-c) 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom right, var(--gr-c) 50%, transparent 50%, transparent);
+  mask-image: linear-gradient(to bottom right, var(--gr-c) 50%, transparent 50%, transparent);
+}
+
+/* ── Folhas longas de fundo ── */
+
+.gr-long-g {
+  position: absolute;
+  bottom: 25vmin;
+  left: -42vmin;
+  transform-origin: bottom left;
+}
+
+.gr-long-g--0 {
+  bottom: 0;
+  transform: scale(0.8) rotate(-5deg);
+}
+
+.gr-long-g--0 .gr-long-g__leaf {
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, var(--gr-c-deep) 80%) !important;
+  mask-image: linear-gradient(to top, transparent 40%, var(--gr-c-deep) 80%) !important;
+}
+
+.gr-long-g--0 .gr-long-g__leaf--1 {
+  --w: 5vmin;
+  --h: 60vmin;
+  left: -2vmin;
+  transform: rotate(3deg) rotateY(-180deg);
+}
+
+.gr-long-g--1,
+.gr-long-g--2 {
+  bottom: -3vmin;
+  left: -35vmin;
+  transform-origin: center;
+  transform: scale(0.6) rotateX(60deg);
+}
+
+.gr-long-g--1 .gr-long-g__leaf,
+.gr-long-g--2 .gr-long-g__leaf {
+  -webkit-mask-image: linear-gradient(to top, transparent 50%, var(--gr-c-deep) 80%) !important;
+  mask-image: linear-gradient(to top, transparent 50%, var(--gr-c-deep) 80%) !important;
+}
+
+.gr-long-g--1 .gr-long-g__leaf--1,
+.gr-long-g--2 .gr-long-g__leaf--1 {
+  left: -1vmin;
+  transform: rotateY(-180deg);
+}
+
+.gr-long-g--2 {
+  left: -17vmin;
+  bottom: 0;
+}
+
+.gr-long-g--2 .gr-long-g__leaf {
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, var(--gr-c-deep) 80%) !important;
+  mask-image: linear-gradient(to top, transparent 40%, var(--gr-c-deep) 80%) !important;
+}
+
+.gr-long-g--3 {
+  left: 25vmin;
+  bottom: -3vmin;
+  transform-origin: center;
+  transform: scale(0.6) rotateX(60deg);
+}
+
+.gr-long-g--3 .gr-long-g__leaf {
+  -webkit-mask-image: linear-gradient(to top, transparent 50%, var(--gr-c-deep) 80%) !important;
+  mask-image: linear-gradient(to top, transparent 50%, var(--gr-c-deep) 80%) !important;
+}
+
+.gr-long-g--4 {
+  left: 42vmin;
+  bottom: 0;
+  transform: scale(0.8) rotate(2deg);
+}
+
+.gr-long-g--5 {
+  left: 0;
+  bottom: -20vmin;
+  z-index: 100;
+  filter: blur(0.3vmin);
+  transform: scale(0.8) rotate(2deg);
+}
+
+.gr-long-g--6 {
+  left: 35vmin;
+  bottom: 20vmin;
+  z-index: -1;
+  filter: blur(0.3vmin);
+  transform: scale(0.6) rotate(2deg);
+  opacity: 0.7;
+}
+
+.gr-long-g--7 {
+  left: -20vmin;
+  bottom: 0;
+  transform: scale(0.75) rotate(-8deg);
+}
+
+.gr-long-g__leaf {
+  --w: 15vmin;
+  --h: 40vmin;
+  --c: var(--gr-c-bright);
+  position: absolute;
+  bottom: 0;
+  width: var(--w);
+  height: var(--h);
+  border-top-left-radius: 100%;
+  border-left: 2vmin solid var(--c);
+  -webkit-mask-image: linear-gradient(to top, transparent 20%, var(--gr-dark));
+  mask-image: linear-gradient(to top, transparent 20%, var(--gr-dark));
+  transform-origin: bottom center;
+}
+
+.gr-long-g__leaf--0 { left: 2vmin; animation: gr-leaf-ans-1 4s linear infinite; }
+.gr-long-g__leaf--1 { --w: 5vmin; --h: 60vmin; animation: gr-leaf-ans-1 4s linear infinite; }
+.gr-long-g__leaf--2 {
+  --w: 10vmin;
+  --h: 40vmin;
+  left: -0.5vmin;
+  bottom: 5vmin;
+  transform-origin: bottom left;
+  transform: rotateY(-180deg);
+  animation: gr-leaf-ans-2 3s linear infinite;
+}
+.gr-long-g__leaf--3 {
+  --w: 5vmin;
+  --h: 30vmin;
+  left: -1vmin;
+  bottom: 3.2vmin;
+  transform-origin: bottom left;
+  transform: rotate(-10deg) rotateY(-180deg);
+  animation: gr-leaf-ans-3 3s linear infinite;
+}
+
+/* ── Grow entrance ── */
+
+.gr-grow-ans {
+  animation: gr-grow-ans 2s var(--d, 0s) backwards;
+}
+
+/* ── Layout principal ── */
+
+.garden-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.garden-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rose-hero-wrap {
+  position: absolute;
+  bottom: 6vmin;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  transform-origin: bottom center;
+}
+
+.rose-hero-wrap--sway {
+  animation: gr-moving-rose 5.5s ease-in-out infinite;
+}
+
+.rose-lights {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.rose-light {
+  position: absolute;
+  width: 1.1vmin;
+  height: 1.1vmin;
+  border-radius: 50%;
+  filter: blur(0.25vmin);
+  box-shadow: 0 0 0.6vmin currentColor;
+  animation: gr-light-ans 4s linear infinite backwards;
+}
+
+/* Origem na cabeca da flor / petalas (~top 22–32% do SVG) */
+.rose-light--1 { left: 44%; bottom: 64%; color: #ffe978; background: #ffe978; animation-delay: 1s; }
+.rose-light--2 { left: 52%; bottom: 67%; color: #ffd447; background: #ffd447; animation-delay: 0.5s; }
+.rose-light--3 { left: 38%; bottom: 62%; color: #fff6d0; background: #fff6d0; animation-delay: 0.3s; }
+.rose-light--4 { left: 56%; bottom: 65%; color: #ffe978; background: #ffe978; animation-delay: 0.9s; }
+.rose-light--5 { left: 47%; bottom: 69%; color: #ffd447; background: #ffd447; animation-delay: 1.5s; }
+.rose-light--6 { left: 41%; bottom: 66%; color: #fff6d0; background: #fff6d0; animation-delay: 3s; }
+.rose-light--7 { left: 50%; bottom: 63%; color: #ffb84a; background: #ffb84a; animation-delay: 2s; }
+.rose-light--8 { left: 48%; bottom: 68%; color: #fff8e0; background: #fff8e0; animation-delay: 3.5s; }
+
+.rose-light:nth-child(odd) {
+  width: 0.95vmin;
+  height: 0.95vmin;
+}
+
+/* ── Keyframes ── */
+
+@keyframes gr-moving-grass {
+  0%, 100% { transform: rotate(-48deg) rotateY(40deg); }
+  50% { transform: rotate(-50deg) rotateY(40deg); }
+}
+
+@keyframes gr-moving-grass-2 {
+  0%, 100% { transform: scale(0.5) rotate(75deg) rotateX(10deg) rotateY(-200deg); }
+  50% { transform: scale(0.5) rotate(79deg) rotateX(10deg) rotateY(-200deg); }
+}
+
+@keyframes gr-moving-grass-3 {
+  0%, 100% { transform: rotate(48deg) rotateY(-40deg); }
+  50% { transform: rotate(50deg) rotateY(-40deg); }
+}
+
+@keyframes gr-moving-grass-4 {
+  0%, 100% { transform: scale(0.5) rotate(-75deg) rotateX(10deg) rotateY(200deg); }
+  50% { transform: scale(0.5) rotate(-79deg) rotateX(10deg) rotateY(200deg); }
+}
+
+@keyframes gr-growing-grass {
+  0% { transform: scale(0); }
+}
+
+@keyframes gr-grass-leaf-1 {
+  0% { transform-origin: bottom left; transform: rotate(-20deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-2 {
+  0% { transform-origin: bottom right; transform: rotate(10deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-3 {
+  0% { transform-origin: bottom left; transform: rotate(-18deg) rotateX(-20deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-4 {
+  0% { transform-origin: bottom right; transform: rotate(2deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-5 {
+  0% { transform-origin: bottom left; transform: rotate(-24deg) rotateX(-20deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-6 {
+  0% { transform-origin: bottom right; transform: rotate(10deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-7 {
+  0% { transform-origin: bottom left; transform: rotate(-10deg) scale(0); }
+}
+
+@keyframes gr-grass-leaf-8 {
+  0% { transform-origin: bottom right; transform: rotate(10deg) scale(0); }
+}
+
+@keyframes gr-g-long-ans {
+  0%, 100% { transform: rotate(-30deg) rotateY(-20deg); }
+  50% { transform: rotate(-32deg) rotateY(-20deg); }
+}
+
+@keyframes gr-g-long-ans-right {
+  0%, 100% { transform: rotate(30deg) rotateY(20deg); }
+  50% { transform: rotate(32deg) rotateY(20deg); }
+}
+
+@keyframes gr-g-right-ans {
+  0%, 100% { transform: rotate(20deg); }
+  50% { transform: rotate(24deg) rotateX(-20deg); }
+}
+
+@keyframes gr-g-right-ans-2 {
+  0%, 100% { transform: rotateY(-180deg) rotate(0deg) rotateX(-20deg); }
+  50% { transform: rotateY(-180deg) rotate(6deg) rotateX(-20deg); }
+}
+
+@keyframes gr-g-right-ans-3 {
+  0%, 100% { transform: rotateY(-180deg) rotate(-20deg); }
+  50% { transform: rotateY(-180deg) rotate(-24deg) rotateX(-20deg); }
+}
+
+@keyframes gr-g-front-ans {
+  0%, 100% { transform: rotate(-28deg) rotateY(30deg) scale(1.04); }
+  50% { transform: rotate(-35deg) rotateY(40deg) scale(1.04); }
+}
+
+@keyframes gr-g-front-ans-right {
+  0%, 100% { transform: rotate(28deg) rotateY(-30deg) scale(1.04); }
+  50% { transform: rotate(35deg) rotateY(-40deg) scale(1.04); }
+}
+
+@keyframes gr-g-front-leaf {
+  0% { transform: rotate(10deg) scale(0); }
+}
+
+@keyframes gr-g-front-leaf-left {
+  0% { transform: rotateY(-180deg) rotate(5deg) scale(0); }
+}
+
+@keyframes gr-g-front-leaf-left-2 {
+  0% { transform: rotateY(-180deg) scale(0); }
+}
+
+@keyframes gr-leaf-ans-1 {
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.1); }
+}
+
+@keyframes gr-leaf-ans-2 {
+  0%, 100% { transform: rotateY(-180deg) rotate(5deg); }
+  50% { transform: rotateY(-180deg) rotate(0deg) scale(1.1); }
+}
+
+@keyframes gr-leaf-ans-3 {
+  0%, 100% { transform: rotate(-10deg) rotateY(-180deg); }
+  50% { transform: rotate(-20deg) rotateY(-180deg); }
+}
+
+@keyframes gr-grow-ans {
+  0% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes gr-moving-rose {
+  0%, 100% { transform: translate3d(-50%, 0, 0) rotate(1.2deg); }
+  50% { transform: translate3d(-50%, 0, 0) rotate(-1.2deg); }
+}
+
+@keyframes gr-light-ans {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+  12% { opacity: 0.85; transform: translate3d(0, -2vmin, 0) scale(1); }
+  25% { opacity: 1; transform: translate3d(-1.5vmin, -8vmin, 0); }
+  50% { opacity: 1; transform: translate3d(1.5vmin, -18vmin, 0); }
+  75% { opacity: 0.7; transform: translate3d(-1vmin, -26vmin, 0); }
+  100% { transform: translate3d(0, -34vmin, 0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rose-hero-wrap--sway,
+  .gr-decor *,
+  .rose-light {
+    animation: none !important;
+  }
+
+  .rose-light {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .rose-light--7,
+  .rose-light--8 {
+    display: none;
+  }
+}

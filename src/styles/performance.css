@@ -1,0 +1,86 @@
+/* Camadas compostas e modo leve para animações mais fluidas */
+
+.garden-root {
+  isolation: isolate;
+  contain: layout style;
+}
+
+.scene-bg {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.cin-stage {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+.gr-meadow {
+  contain: layout style paint;
+}
+
+.gr-thin-field {
+  contain: layout style paint;
+}
+
+.gr-thin-blade,
+.gr-tuft__blade {
+  contain: layout style paint;
+  backface-visibility: hidden;
+}
+
+.wind-trails {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+.rose-hero-wrap {
+  contain: layout style paint;
+}
+
+/* Modo leve — menos filtros, menos partículas, fundo sem blur animado */
+.garden-root--perf-lite .scene-bg__image {
+  filter: saturate(1.05) contrast(0.98) brightness(0.98);
+}
+
+.garden-root--perf-lite .gr-tuft__blade--mid,
+.garden-root--perf-lite .gr-tuft__blade--outer,
+.garden-root--perf-lite .gr-thin-blade--fine,
+.garden-root--perf-lite .gr-thin-blade--tall {
+  filter: none;
+}
+
+.garden-root--perf-lite .gr-thin-blade,
+.garden-root--perf-lite .gr-tuft__blade {
+  background: linear-gradient(
+    to top,
+    var(--gr-c-deep) 0%,
+    var(--gr-c) 52%,
+    var(--gr-c-light) 88%,
+    rgba(168, 210, 130, 0.5) 100%
+  );
+}
+
+.garden-root--perf-lite .wind-trail-item__shape {
+  filter: none;
+}
+
+.garden-root--perf-lite .rose-light:nth-child(n + 6) {
+  display: none;
+}
+
+.garden-root--perf-lite .rose-light {
+  filter: none;
+  box-shadow:
+    0 0 0.8vmin currentColor,
+    0 0 1.4vmin rgba(255, 230, 120, 0.45);
+}
+
+.garden-root--perf-lite .cin-grade {
+  mix-blend-mode: normal;
+  opacity: 0.38;
+}
+
+.garden-root--perf-lite .cin-particle:nth-child(n + 4) {
+  display: none;
+}

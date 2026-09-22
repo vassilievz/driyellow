@@ -1,0 +1,106 @@
+/* Rastros de vento â€” fitas orgÃ¢nicas com ciclo de vida */
+.wind-trails {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wind-trails__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.wind-trail-item {
+  transform-origin: center center;
+  animation: wind-life-ltr var(--wt-life, 14s) linear infinite;
+  animation-delay: var(--wt-delay, 0s);
+  opacity: 0;
+  will-change: transform;
+}
+.wind-trail-item--rtl {
+  animation-name: wind-life-rtl;
+}
+.wind-trail-item--reduced {
+  animation-duration: calc(var(--wt-life, 14s) * 2);
+}
+.wind-trail-item__shape {
+  opacity: 0;
+  filter: blur(var(--wt-blur, 1px));
+  animation: wind-shape-pulse var(--wt-life, 14s) linear infinite;
+  animation-delay: var(--wt-delay, 0s);
+}
+/* Ciclo: nascer â†’ atravessar â†’ dissipar */
+@keyframes wind-life-ltr {
+  0% {
+    transform: translateX(-42%);
+    opacity: 0;
+  }
+  8% {
+    opacity: calc(var(--wt-op, 0.12) * 0.35);
+  }
+  18% {
+    opacity: var(--wt-op, 0.12);
+  }
+  72% {
+    opacity: var(--wt-op, 0.12);
+  }
+  88% {
+    opacity: calc(var(--wt-op, 0.12) * 0.4);
+  }
+  100% {
+    transform: translateX(42%);
+    opacity: 0;
+  }
+}
+@keyframes wind-life-rtl {
+  0% {
+    transform: translateX(42%);
+    opacity: 0;
+  }
+  8% {
+    opacity: calc(var(--wt-op, 0.12) * 0.35);
+  }
+  18% {
+    opacity: var(--wt-op, 0.12);
+  }
+  72% {
+    opacity: var(--wt-op, 0.12);
+  }
+  88% {
+    opacity: calc(var(--wt-op, 0.12) * 0.4);
+  }
+  100% {
+    transform: translateX(-42%);
+    opacity: 0;
+  }
+}
+@keyframes wind-shape-pulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.7;
+  }
+}
+.wind-trails--paused .wind-trail-item,
+.wind-trails--paused .wind-trail-item__shape {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wind-trail-item {
+    animation-duration: calc(var(--wt-life, 14s) * 2.5) !important;
+  }
+}
+@media (max-width: 767px) {
+  .wind-trail-item__shape {
+    filter: blur(0.8px);
+  }
+}

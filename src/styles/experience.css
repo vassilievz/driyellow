@@ -1,0 +1,26 @@
+@keyframes rose-sway {
+  0%,
+  100% {
+    transform: rotate(-1.15deg) translateX(-2px);
+  }
+  32% {
+    transform: rotate(1.35deg) translateX(3px);
+  }
+  58% {
+    transform: rotate(-0.55deg) translateX(-1px);
+  }
+  78% {
+    transform: rotate(0.85deg) translateX(2px);
+  }
+}
+
+.rose-sway {
+  animation: rose-sway 6.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rose-sway {
+    animation: none !important;
+  }
+}

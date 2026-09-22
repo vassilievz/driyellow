@@ -1,0 +1,255 @@
+﻿/* Color grading, profundidade e atmosfera cinematográfica */
+.scene-bg {
+  overflow: hidden;
+}
+
+.scene-bg__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.92;
+  filter: blur(1px) saturate(1.05) contrast(0.98) brightness(0.98);
+  transform: scale(1.03) translateZ(0);
+  backface-visibility: hidden;
+}
+.scene-bg__depth {
+  background:
+    linear-gradient(180deg, rgba(6, 8, 5, 0.04) 0%, rgba(10, 14, 8, 0.02) 38%, rgba(5, 8, 4, 0.18) 100%),
+    radial-gradient(ellipse 65% 50% at 50% 55%, transparent 40%, rgba(0, 0, 0, 0.1) 100%);
+}
+.scene-bg__horizon {
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(255, 175, 70, 0.07) 54%,
+    rgba(255, 140, 50, 0.04) 62%,
+    transparent 74%
+  );
+}
+.scene-bg__ambient {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 210, 130, 0.06) 0%,
+    rgba(255, 190, 90, 0.03) 28%,
+    transparent 52%
+  );
+}
+.cin-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 5vh;
+}
+.cin-grade {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 78% 72% at 50% 48%, transparent 35%, rgba(0, 0, 0, 0.42) 100%),
+    linear-gradient(180deg, rgba(18, 12, 8, 0.12) 0%, transparent 28%, rgba(6, 10, 5, 0.25) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.28;
+}
+.cin-grade__warmth {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 50% 38% at 50% 44%,
+    rgba(255, 195, 90, 0.06) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+.cin-mist {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 210, 140, 0.04) 38%,
+      rgba(20, 28, 16, 0.08) 72%,
+      rgba(8, 12, 7, 0.18) 100%
+    );
+}
+/* ── Primeiro plano / moldura vegetal ── */
+.cin-foreground {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cin-foreground__leaf {
+  position: absolute;
+  bottom: 0;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 40%;
+  background: linear-gradient(
+    145deg,
+    rgba(36, 56, 28, 0.82) 0%,
+    rgba(48, 72, 36, 0.72) 45%,
+    rgba(58, 88, 44, 0.55) 100%
+  );
+  filter: blur(1px);
+  transform-origin: bottom center;
+  animation: cin-fg-sway 5.5s ease-in-out infinite;
+}
+.cin-foreground__leaf--l1 {
+  left: -8vmin;
+  width: 28vmin;
+  height: 42vmin;
+  transform: rotate(12deg);
+  animation-delay: 0s;
+}
+.cin-foreground__leaf--l2 {
+  left: -2vmin;
+  width: 18vmin;
+  height: 28vmin;
+  bottom: -2vmin;
+  opacity: 0.85;
+  transform: rotate(22deg);
+  animation-delay: 0.8s;
+}
+.cin-foreground__leaf--r1 {
+  right: -8vmin;
+  width: 30vmin;
+  height: 44vmin;
+  animation: cin-fg-sway-r 5.5s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+.cin-foreground__leaf--r2 {
+  right: -1vmin;
+  width: 16vmin;
+  height: 26vmin;
+  bottom: -1vmin;
+  opacity: 0.82;
+  animation: cin-fg-sway-r2 4.8s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+.cin-foreground__blade {
+  position: absolute;
+  bottom: 0;
+  width: 3vmin;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(to top, rgba(32, 52, 26, 0.85), rgba(52, 78, 38, 0.65));
+  filter: blur(0.6px);
+  transform-origin: bottom center;
+  animation: cin-fg-sway 4.2s ease-in-out infinite;
+}
+.cin-foreground__blade--l { left: 2vmin; height: 18vmin; transform: rotate(-8deg); }
+.cin-foreground__blade--r { right: 2vmin; height: 16vmin; transform: rotate(6deg); animation-delay: 0.6s; }
+@keyframes cin-fg-sway {
+  0%,
+  100% {
+    transform: rotate(var(--fg-rot, 12deg));
+  }
+  50% {
+    transform: rotate(calc(var(--fg-rot, 12deg) + 2deg));
+  }
+}
+@keyframes cin-fg-sway-r {
+  0%,
+  100% {
+    transform: rotate(-14deg) scaleX(-1);
+  }
+  50% {
+    transform: rotate(-12deg) scaleX(-1);
+  }
+}
+@keyframes cin-fg-sway-r2 {
+  0%,
+  100% {
+    transform: rotate(-20deg) scaleX(-1);
+  }
+  50% {
+    transform: rotate(-18deg) scaleX(-1);
+  }
+}
+/* ── Partículas ambiente ── */
+.cin-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cin-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 240, 180, 0.9) 0%, rgba(255, 210, 100, 0) 70%);
+  animation: cin-particle-float 8s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes cin-particle-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  15% {
+    opacity: var(--p-op, 0.35);
+  }
+  85% {
+    opacity: calc(var(--p-op, 0.35) * 0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12vmin) translateX(var(--p-drift, 2vmin));
+  }
+}
+/* ── Pétala ocasional ── */
+.cin-falling-petal {
+  position: absolute;
+  z-index: 28;
+  pointer-events: none;
+  width: 2.2vmin;
+  height: 3.4vmin;
+  opacity: 0;
+  background: linear-gradient(135deg, #fff6d0 0%, #ffd447 55%, #e7ab18 100%);
+  border-radius: 50% 50% 50% 0;
+  filter: blur(0.3px);
+  animation: cin-petal-fall 14s ease-in-out infinite;
+}
+@keyframes cin-petal-fall {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  5% {
+    opacity: 0.45;
+  }
+  85% {
+    opacity: 0.2;
+    transform: translate(18vmin, 55vmin) rotate(140deg);
+  }
+}
+.cin-falling-petal--2 {
+  animation-delay: 7s;
+  left: 58%;
+  width: 1.8vmin;
+  height: 2.8vmin;
+}
+/* ── Rosa integrada ── */
+.rose-render {
+  filter:
+    drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 28px rgba(255, 190, 70, 0.07));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cin-foreground__leaf,
+  .cin-foreground__blade,
+  .cin-particle,
+  .cin-falling-petal {
+    animation: none !important;
+    opacity: 0.2;
+  }
+}

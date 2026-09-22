@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
-const BG_IMAGE = '/images/sunset-bg.jpg';
+const BG_IMAGE =
+  'https://i.pinimg.com/1200x/b3/a2/f0/b3a2f08d850647f59ea5c31683eafc76.jpg';
 
 export const SceneBackground = memo(function SceneBackground() {
   return (

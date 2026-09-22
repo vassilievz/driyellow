@@ -52,7 +52,7 @@ export function RoseExperience() {
 
       <DedicationText />
       <OrientationHint visible={isPortraitMobile} />
-      <AmbientMusic enabled={loaded && !reduced} />
+      <AmbientMusic enabled={loaded} />
     </div>
   );
 }

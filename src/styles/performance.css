@@ -40,7 +40,7 @@
 
 /* Modo leve — menos filtros, menos partículas, fundo sem blur animado */
 .garden-root--perf-lite .scene-bg__image {
-  filter: saturate(1.05) contrast(0.98) brightness(0.98);
+  filter: saturate(1.1) contrast(1.02) brightness(1.06);
 }
 
 .garden-root--perf-lite .gr-tuft__blade--mid,
@@ -77,8 +77,8 @@
 }
 
 .garden-root--perf-lite .cin-grade {
-  mix-blend-mode: normal;
-  opacity: 0.38;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
 }
 
 .garden-root--perf-lite .cin-particle:nth-child(n + 4) {
